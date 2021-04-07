@@ -1,0 +1,31 @@
+<h1>New game</h1>
+
+<% 
+actual_time = Time.now
+grid_length = 10
+
+def generate_grid(grid_size)
+  # TODO: generate random grid of letters
+  # Create empty array
+  return_array = []
+  # Fill array with capital letters (65 to 90)
+  (1..grid_size).each { return_array << rand(65..90).chr }
+  return_array
+end
+%>
+
+<!-- <% letters = ["a","Q","c","d","e","f","g","h"] %> -->
+<ol>
+  <% grid = generate_grid(grid_length)
+    grid.each do |letter| %>
+    <div class="letter"><%= letter.capitalize %></div>
+  <% end %>
+</ol>
+<p>What is the longest word you can find?</p>
+<form action="/score" method="post">
+  <input type="text" name="attempt" placeholder="Answer?">
+  <input type="submit" value="Play">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+   <%= hidden_field_tag :actual_time, actual_time %>
+   <%= hidden_field_tag :grid, grid %>
+</form>
